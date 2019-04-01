@@ -5,13 +5,22 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-     int [] arr1 = {1,0,0,1,1,0,1,1,0,0};
+     /*задание 1: Задать целочисленный массив, состоящий из элементов 0 и 1
+      С помощью цикла и условия заменить 0 на 1, 1 на 0 */
+        int [] arr1 = {1,0,0,1,1,0,1,1,0,0};
         for (int i = 0; i <arr1.length-1 ; i++) {
             if (arr1[i]==1) arr1[i]=0;
                     else arr1[i]=1;
         }
         System.out.println(Arrays.toString(arr1));
 
+     //задание 2
+     // Задать пустой целочисленный массив размером 8. С помощью цикла заполнить его значениями 0 3 6 9 12 15 18 21;
+        int [] arr2 = new int[8];
+        for (int j = 0; j <arr2.length ; j++) {
+            arr2[j]=3*j;
+        }
+        System.out.println(Arrays.toString(arr2));
 
     }
 }
