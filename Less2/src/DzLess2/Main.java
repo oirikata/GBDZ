@@ -22,6 +22,18 @@ public class Main {
         }
         System.out.println(Arrays.toString(arr2));
 
+     //задание 3
+     //Задать массив [ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 ] пройти по нему циклом, и числа меньшие 6 умножить на 2;
+        int[] arr3={ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 };
+        for (int k = 0; k <arr3.length ; k++) {
+            if (arr3[k]<6) arr3[k]=arr3[k]*2;
+        }
+        System.out.println(Arrays.toString(arr3));
+    //задание 4
+    
+
+
+
     }
 }
 
