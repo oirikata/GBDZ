@@ -30,8 +30,15 @@ public class Main {
         }
         System.out.println(Arrays.toString(arr3));
     //задание 4
-    
-
+    /*Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
+     и с помощью цикла(-ов) заполнить его диагональные элементы единицами */
+        int[][] arr4 = new int[6][6];
+        for (int l = 0; l <arr4.length ; l++) {
+           arr4[l][l]=1;
+           arr4[l][arr4.length-l-1]=1;
+        }
+        for (int n = 0; n < arr4.length; n++) {
+        System.out.println(Arrays.toString(arr4[n])); }
 
 
     }
