@@ -51,6 +51,31 @@ public class Main {
         }
         System.out.println("Минимальное значение: "+min+" ,Максимальное значение: " +max);
 
+     //задание 6
+        int[] arr6= {6,2,3,1,};
+        boolean b = checkBalance(arr6);
+        System.out.println((b==true) ? "Массив сбалансирован" : "массив не сбалансирован");
+
+    }
+
+
+    public static boolean checkBalance(int[] arr) {
+        int summ1=0;
+        int summ2=0;
+        boolean result=false;
+        for (int i = 0; i <arr.length ; i++) {
+            summ2=summ2+arr[i];
+        }
+        for (int i = 0; i <arr.length ; i++) {
+            summ1=summ1+arr[i];
+            if (summ1==summ2-summ1) {
+                result= true;
+                break;
+            }
+        }
+        return result;
+
+
     }
 }
 
