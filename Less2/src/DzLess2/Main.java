@@ -56,6 +56,10 @@ public class Main {
         boolean b = checkBalance(arr6);
         System.out.println((b==true) ? "Массив сбалансирован" : "массив не сбалансирован");
 
+    //задание 7
+        System.out.println(Arrays.toString(arr3));
+        changeMassPosition(arr3,3);
+
     }
 
 
@@ -76,6 +80,40 @@ public class Main {
         return result;
 
 
+    }
+    public static void changeMassPosition (int[] arr, int pos) {
+        int buff1=0;
+        int buff2=0;
+        int count=0;
+        if (pos >0) {
+            do {
+                buff1=arr[0];
+                arr[0]=arr[arr.length-1];
+                for (int i = 1; i <arr.length ; i++) {
+                    buff2=arr[i];
+                    arr[i]=buff1;
+                    buff1=buff2;
+                }
+
+                count=count+1;
+            } while (count<pos);
+            System.out.println(Arrays.toString(arr));
+        }
+        else if (pos<0) {
+            do {
+                buff1=arr[arr.length-1];
+                arr[arr.length-1]=arr[0];
+                for (int i = arr.length-1; i >=0 ; i--) {
+                    buff2=arr[i];
+                    arr[i]=buff1;
+                    buff1=buff2;
+                }
+
+                count=count-1;
+            } while (count>pos);
+            System.out.println(Arrays.toString(arr));
+        }
+        else System.out.println(Arrays.toString(arr));
     }
 }
 
