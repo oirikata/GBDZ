@@ -19,6 +19,7 @@ public class Main {
         playWordsGame();
 
 
+
     }
 
     private static void playNumbersGame() {
@@ -28,7 +29,7 @@ public class Main {
         do {
             int number = rnd.nextInt(10);
             System.out.println("Мы загадали число от 0 до 9. Угадай число за 3 попытки");
-            System.out.println(number);
+           // System.out.println(number);
             boolean win=false;
             int t=0;
             do {
@@ -45,7 +46,7 @@ public class Main {
             System.out.println("Повторить игру еще раз? 1- да/0-нет");
             again = sc.nextInt();
         } while (again==1);
-
+        //sc.close();
     }
     private static void playWordsGame(){
         Random rnd = new Random();
@@ -59,7 +60,7 @@ public class Main {
         do {
         String word = arr[rnd.nextInt(arr.length)];
         System.out.println("Мы загадали число от 0 до 9. Угадай число за 3 попытки");
-        System.out.println(word);
+        //System.out.println(word);
         do {
             String guess = sc.next();
             if (guess.equals(word)==false)
@@ -86,6 +87,7 @@ public class Main {
         System.out.println("Повторить игру еще раз? 1- да/0-нет");
         again = sc.nextInt();
     } while (again==1);
+        sc.close();
     }
 
 
