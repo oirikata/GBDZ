@@ -7,6 +7,7 @@ public class Main {
     static int size_y=5;
     static int size_x=5;
     static char[][] field=new char [size_y][size_x];
+    static int[][] copyField=new int[size_y][size_x];
     static char PLAYER_DOT = 'X';
     static char AI_DOT = 'O';
     static char EMPTY_DOT = '.';
@@ -44,6 +45,17 @@ public class Main {
         }
 
     }
+    public static void calcField (field) {
+        for (int i = 0; i <size_y ; i++) {
+            for (int j = 0; j <size_x ; j++) {
+                if (field[j][i]==PLAYER_DOT)
+                   copyField[j][i]=1;
+                else copyField[j][i]=0;
+            }
+        }
+    }
+
+
     public static void printField () {
         System.out.print("| ");
         for (int i = 0; i <size_x ; i++) {
@@ -83,18 +95,28 @@ public class Main {
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
         } while (!ifSellValid(x,y));
-//        System.out.println(ifSellValid(x,y));
         setSym(y,x,PLAYER_DOT);
     }
+
+
 
     public static void aiStep() {
         int x,y;
         do {
-            System.out.println("Введите координаты: X Y");
+            System.out.println("Ход SkyNet");
+            //добавляем искусственный интеллект - блокировать 2 подряд
+            for (int i = 0; i <size_y-1; i++) {
+                for (int j = 0; j < size_x-1; j++) {
+                    //horizontal
+
+
+                }
+            }
+
+
             x = random.nextInt(size_x);
             y = random.nextInt(size_y);
         } while (!ifSellValid(x,y));
-//        System.out.println(ifSellValid(x,y));
         setSym(y,x,AI_DOT);
     }
     public static boolean isFieldFull() {
