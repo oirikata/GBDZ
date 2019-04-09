@@ -60,10 +60,11 @@ public class Main {
     }
     public static boolean ifSellValid (int x, int y){
 
-        if (x < 0 || y < 0 || x > size_x- 1 || y > size_y - 1) {
-            return false;
-        }
-        return field[y][x] == EMPTY_DOT;
+//        if (x < 0 || y < 0 || x > size_x- 1 || y > size_y - 1) {
+//            return false;
+//        }
+        if (field[y][x] == EMPTY_DOT) return true;
+        else return false;
     }
     public static void initField() {
         for (int i = 0; i < field.length; i++) {
@@ -78,26 +79,28 @@ public class Main {
     public static void playerStep() {
         int x,y;
         do {
-            System.out.println("Введите координаты: X Y (1-3)");
+            System.out.println("Введите координаты: X Y");
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
-        } while (!ifSellValid(y,x));
+        } while (!ifSellValid(x,y));
+//        System.out.println(ifSellValid(x,y));
         setSym(y,x,PLAYER_DOT);
     }
 
     public static void aiStep() {
         int x,y;
         do {
-            System.out.println("Введите координаты: X Y (1-3)");
+            System.out.println("Введите координаты: X Y");
             x = random.nextInt(size_x);
             y = random.nextInt(size_y);
-        } while (!ifSellValid(y,x));
+        } while (!ifSellValid(x,y));
+//        System.out.println(ifSellValid(x,y));
         setSym(y,x,AI_DOT);
     }
     public static boolean isFieldFull() {
         for (int i = 0; i < size_y; i++) {
             for (int j = 0; j < size_x; j++) {
-                if(field[i][j] == EMPTY_DOT) {
+                if(field[j][i] == EMPTY_DOT) {
                     return false;
                 }
             }
