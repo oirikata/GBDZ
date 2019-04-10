@@ -45,14 +45,97 @@ public class Main {
         }
 
     }
-    public static void calcField (field) {
-        for (int i = 0; i <size_y ; i++) {
-            for (int j = 0; j <size_x ; j++) {
-                if (field[j][i]==PLAYER_DOT)
-                   copyField[j][i]=1;
-                else copyField[j][i]=0;
+    //ищет в массиве максимально длинные комбинации от vinNum-1 до 1, возвращает координаты хода для ИИ
+    public static int[] aiCoordinate() {
+        int[] coordinate=new int[2];
+        char currentPoint;
+        int summ1=1;
+        //ищем самую длинную цепочку
+        for (int i = vinNum-1; i >0 ; i--) {
+            for (int j = 0; j <size_y ; j++) {
+                for (int k = 0; k <size_x ; k++) {
+                    if (field[k][j]==PLAYER_DOT) {
+                    //горизонталь
+                    int a=1;
+                    while ((k+a)<size_x&field[k+a][j]==PLAYER_DOT)
+                     {
+                           a++;
+                           summ1++;
+                        };
+                    if (summ1==i&&ifSellValid((k+a),j)) {
+                        coordinate[0]=k+a;
+                        coordinate[1]=j;
+                        return coordinate;
+                    }
+                    else if (summ1==i&&ifSellValid((k-1),j)) {
+                        coordinate[0]=k-1;
+                        coordinate[1]=j;
+                        return coordinate;
+                    }
+                    //вертикаль
+                    a=1;
+                    summ1=1;
+                    while ((j+a)<size_y&field[k][j+a]==PLAYER_DOT)
+                      {
+                         a++;
+                         summ1++;
+                            };
+                        if (summ1==i&&ifSellValid(k,j+a)) {
+                            coordinate[0]=k;
+                            coordinate[1]=j+a;
+                            return coordinate;
+                        }
+                        else if (summ1==i&&ifSellValid(k,j-1)) {
+                            coordinate[0]=k;
+                            coordinate[1]=j-1;
+                            return coordinate;
+                        }
+                    //диагональ вправо
+                        a=1;
+                        summ1=1;
+                        while ((j+a)<size_y&&(k+a)<size_x&field[k+a][j+a]==PLAYER_DOT)
+                        {
+                                a++;
+                                summ1++;
+                            };
+                        if (summ1==i&&ifSellValid(k+a,j+a)) {
+                            coordinate[0]=k+a;
+                            coordinate[1]=j+a;
+                            return coordinate;
+                        }
+                        else if (summ1==i&&ifSellValid(k-1,j-1)) {
+                            coordinate[0]=k-1;
+                            coordinate[1]=j-1;
+                            return coordinate;
+                        }
+
+                     //диагональ влево
+                        a=1;
+                        summ1=1;
+                        while ((j+a)<size_y&(k-a)>0&field[k-a][j+a]==PLAYER_DOT)
+                             {
+                                a++;
+                                summ1++;
+                            };
+                        if (summ1==i&&ifSellValid(k-a,j+a)) {
+                            coordinate[0]=k-a;
+                            coordinate[1]=j+a;
+                            return coordinate;
+                        }
+                        else if (summ1==i&&ifSellValid(k+1,j-1)) {
+                            coordinate[0]=k+1;
+                            coordinate[1]=j-1;
+                            return coordinate;
+                        }
+
+                }
             }
-        }
+
+        }}
+        coordinate[0]=random.nextInt(size_x);
+        coordinate[1]=random.nextInt(size_y);
+        return coordinate;
+
     }
 
 
@@ -102,21 +185,12 @@ public class Main {
 
     public static void aiStep() {
         int x,y;
-        do {
+
             System.out.println("Ход SkyNet");
-            //добавляем искусственный интеллект - блокировать 2 подряд
-            for (int i = 0; i <size_y-1; i++) {
-                for (int j = 0; j < size_x-1; j++) {
-                    //horizontal
+            //добавляем искусственный интеллект
+            x=aiCoordinate()[0];
+            y = aiCoordinate()[1];
 
-
-                }
-            }
-
-
-            x = random.nextInt(size_x);
-            y = random.nextInt(size_y);
-        } while (!ifSellValid(x,y));
         setSym(y,x,AI_DOT);
     }
     public static boolean isFieldFull() {
