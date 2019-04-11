@@ -7,7 +7,7 @@ public class Main {
     static int size_y=5;
     static int size_x=5;
     static char[][] field=new char [size_y][size_x];
-    static int[][] copyField=new int[size_y][size_x];
+    //static int[][] copyField=new int[size_y][size_x];
     static char PLAYER_DOT = 'X';
     static char AI_DOT = 'O';
     static char EMPTY_DOT = '.';
@@ -45,22 +45,23 @@ public class Main {
         }
 
     }
+
     //ищет в массиве максимально длинные комбинации от vinNum-1 до 1, возвращает координаты хода для ИИ
     public static int[] aiCoordinate() {
         int[] coordinate=new int[2];
-        char currentPoint;
         int summ1=1;
         //ищем самую длинную цепочку
         for (int i = vinNum-1; i >0 ; i--) {
             for (int j = 0; j <size_y ; j++) {
                 for (int k = 0; k <size_x ; k++) {
-                    if (field[k][j]==PLAYER_DOT) {
+                    if (field[j][k]==PLAYER_DOT) {
                     //горизонталь
                     int a=1;
-                    while ((k+a)<size_x&field[k+a][j]==PLAYER_DOT)
+                        summ1=1;
+                    while ((k+a)<size_x&&field[j][k+a]==PLAYER_DOT)
                      {
                            a++;
-                           summ1++;
+                           summ1=summ1+1;
                         };
                     if (summ1==i&&ifSellValid((k+a),j)) {
                         coordinate[0]=k+a;
@@ -75,10 +76,10 @@ public class Main {
                     //вертикаль
                     a=1;
                     summ1=1;
-                    while ((j+a)<size_y&field[k][j+a]==PLAYER_DOT)
+                    while ((j+a)<size_y&&field[j+a][k]==PLAYER_DOT)
                       {
                          a++;
-                         summ1++;
+                          summ1=summ1+1;
                             };
                         if (summ1==i&&ifSellValid(k,j+a)) {
                             coordinate[0]=k;
@@ -93,10 +94,10 @@ public class Main {
                     //диагональ вправо
                         a=1;
                         summ1=1;
-                        while ((j+a)<size_y&&(k+a)<size_x&field[k+a][j+a]==PLAYER_DOT)
+                        while ((j+a)<size_y&&(k+a)<size_x&&field[j+a][k+a]==PLAYER_DOT)
                         {
                                 a++;
-                                summ1++;
+                            summ1=summ1+1;
                             };
                         if (summ1==i&&ifSellValid(k+a,j+a)) {
                             coordinate[0]=k+a;
@@ -112,10 +113,10 @@ public class Main {
                      //диагональ влево
                         a=1;
                         summ1=1;
-                        while ((j+a)<size_y&(k-a)>0&field[k-a][j+a]==PLAYER_DOT)
+                        while ((j+a)<size_y&&(k-a)>0&&field[j+a][k-a]==PLAYER_DOT)
                              {
                                 a++;
-                                summ1++;
+                                 summ1=summ1+1;
                             };
                         if (summ1==i&&ifSellValid(k-a,j+a)) {
                             coordinate[0]=k-a;
@@ -155,20 +156,20 @@ public class Main {
     }
     public static boolean ifSellValid (int x, int y){
 
-//        if (x < 0 || y < 0 || x > size_x- 1 || y > size_y - 1) {
-//            return false;
-//        }
+        if (x < 0 || y < 0 || x > size_y- 1 || y > size_x - 1) {
+            return false;
+        }
         if (field[y][x] == EMPTY_DOT) return true;
         else return false;
     }
     public static void initField() {
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
+        for (int i = 0; i < size_y; i++) {
+            for (int j = 0; j < size_x; j++) {
                 field[i][j] = EMPTY_DOT;
             }
         }
     }
-    public static void setSym(int y, int x, char sym) {
+    public static void setSym(int x, int y, char sym) {
         field[y][x] = sym;
     }
     public static void playerStep() {
@@ -178,7 +179,7 @@ public class Main {
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
         } while (!ifSellValid(x,y));
-        setSym(y,x,PLAYER_DOT);
+        setSym(x,y,PLAYER_DOT);
     }
 
 
@@ -191,12 +192,12 @@ public class Main {
             x=aiCoordinate()[0];
             y = aiCoordinate()[1];
 
-        setSym(y,x,AI_DOT);
+        setSym(x,y,AI_DOT);
     }
     public static boolean isFieldFull() {
         for (int i = 0; i < size_y; i++) {
             for (int j = 0; j < size_x; j++) {
-                if(field[j][i] == EMPTY_DOT) {
+                if(field[i][j] == EMPTY_DOT) {
                     return false;
                 }
             }
@@ -208,33 +209,31 @@ public class Main {
         int summ1, summ2, summ3, summ4;
         for (int i = 0; i < size_y; i++) {
             for (int j = 0; j < size_x; j++) {
-                if (field[j][i]==sym) {
+                if (field[i][j]==sym) {
                     //горизонталь
                     summ1=0;
                     for (int k = 0; k <vinNum&&j+k<size_x; k++) {
-                        if (field[j+k][i]==sym) summ1++;
+                        if (field[i][j+k]==sym) summ1++;
                     }
                     //вертикаль
                     summ2=0;
                     for (int k = 0; k <vinNum&&i+k<size_y; k++) {
-                        if (field[j][i+k]==sym) summ2++;
+                        if (field[i+k][j]==sym) summ2++;
                     }
                     //диагональ вправо
                     summ3=0;
                     for (int k = 0; k <vinNum&&i+k<size_y&&j+k<size_x; k++) {
-                       if(field[j+k][i+k]==sym) summ3++;
+                       if(field[i+k][j+k]==sym) summ3++;
                     }
                     //диагональ влево
                     summ4=0;
                     for (int k = 0; k <vinNum&&j-k>0&&i+k<size_y; k++) {
-                        if(field[j-k][i+k]==sym) summ4++;
+                        if(field[i+k][j-k]==sym) summ4++;
                     }
                     if (summ1==vinNum||summ2==vinNum||summ3==vinNum||summ4==vinNum)
                         return true;
-                    break;
 
                 }
-                else continue;
             }
 
         } return false;
